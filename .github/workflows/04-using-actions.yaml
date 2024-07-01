@@ -5,6 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:     # on each run statement of this job this default the following attr will be inserted. so we can commit this attr from other run sections. I commmented them
+        working-directory: 04-using-actions/react-app
 
     # 0. checkout the code from the repository
     steps:
@@ -18,7 +21,10 @@ jobs:
           node-version: '20.x'
       - name: Install Dependency
         run: npm ci # npm clean install command
-        working-directory: 04-using-actions/react-app
+        #working-directory: 04-using-actions/react-app
+      - name: Run unit test for npm
+        run : npm run test
+        #working-directory: 04-using-actions/react-app
     # 1. Install deps of our react application
     # 2. Execute automated test
 
