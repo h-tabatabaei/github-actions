@@ -8,7 +8,7 @@ jobs:
 
     # 0. checkout the code from the repository
     steps:
-      - name: Checkout code
+      - name: Checkout code 
         uses: actions/checkout@v4
       - name: printing folders
         run: ls       
