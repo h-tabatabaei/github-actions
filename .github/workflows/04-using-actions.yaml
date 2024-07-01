@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code 
         uses: actions/checkout@v4
       - name: printing folders
-        run: ls       
+        run: ls -a       
 
     # 1. Install deps of our react application
     # 2. Execute automated test
