@@ -1,17 +1,25 @@
 name: 06 - context
-run-name: 06 - context | DEBUG - ${{inputs.debug1}}
+run-name: 06 - context | DEBUG - ${{inputs.debug}}
 
 on:
     push:
     workflow_dispatch: 
         inputs:
-          debug1:
+          debug:
+            # this name "debug" is the optional name. so you can change it to every thing. this name will be shown to select from runng work windown in github ui"
             type: boolean
             default: false
+env:
+    my_WF_var: 'workflow'
+    my_WF_over_var: 'workflow'    
 
 jobs:
     echo-jobs:
         runs-on: ubuntu-latest
+        env:
+            my_WF_var: 'JOB'
+            my_WF_over_var: 'JOB'    
+
         steps:
           - name : display information
             run: |
@@ -26,7 +34,13 @@ jobs:
             run: |
               echo "varible  Values: ${{vars.My_VAR}}"
               # on github repository page go to setting > select Secrets and Varables under security form right pane > actions > variables tab > create repository variable >define MY_VAR
-              
+          - name: print variables
+            env:
+                my_WF_over_var: 'step'
+            run: |
+                echo "varible  Values: ${{env.my_WF_var}}"
+                echo "varible  Values: ${{env.my_WF_over_var}}"
+                
 
 
              
