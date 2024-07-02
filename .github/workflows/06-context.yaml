@@ -2,7 +2,7 @@ name: 06 - context
 run-name: 06 - context | DEBUG - ${{inputs.debug}}
 
 on:
-    push:
+    #push:
     workflow_dispatch: 
         inputs:
           debug:
@@ -39,8 +39,13 @@ jobs:
                 my_WF_over_var: 'step'
             run: |
                 echo "varible  Values: ${{env.my_WF_var}}"
-                echo "varible  Values: ${{env.my_WF_over_var}}"
-                
+                echo "varible  OVer Values: ${{env.my_WF_over_var}}"
+    echo-jobs2:
+        runs-on: ubuntu-latest
+        steps:
+          - name : display workfellow level variable
+            run: |            
+                echo "workfellow values $my_WF_var"
 
 
              
