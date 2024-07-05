@@ -1,0 +1,31 @@
+name: 08 - variables
+
+on:
+    push:
+    workflow_dispatch: 
+env:
+    WORKFLOW_VAR: "I am a workflow var"
+    OVERWRITTEN: "I am from workflow level"
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        env:
+            JOB_VAR: "I am a job env var"
+            OVERWRITTEN: "I am from job level"
+        steps:
+            - name: Print env Variables
+              env:
+                STEP_VAR: "I am a step env var"
+                step_var2: "I am another step env var"
+              run: |
+                echo "step env var: ${{env.STEP_VAR}}"
+                echo "step env var2: $step_var2"
+                # the env will be exist on host as an environment var
+                echo  "Job env var: ${{env.JOB_VAR}}"
+                echo  "Workflow env var: ${{env.WORKFLOW_VAR}}"
+                echo  "Overwritten env var: ${{env.OVERWRITTEN}}
+                # as you can see: step level override the job and the job var override to workflow level var.
+                
+                
+        
+
