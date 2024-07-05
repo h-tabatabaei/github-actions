@@ -6,6 +6,16 @@ jobs:
     echo1:
         runs-on: ubuntu-latest
         steps:
+            - name: Print PR title
+              run: echo ${{github.event.pull_request.title}}
+            - name: Print PR labels
+              run: |
+                cat << EOF
+                ${{toJson(github.event.pull_request.labels)}}
+                EOF
+            - name: Bug STEP
+              if: ${{!cancelled() && contains(github.event.pull_request.labels, 'fix')}}
+              run: echo "I am a bug fix"
             - name: Failig step
               run: exit 1
             - name:  I will be skipped
@@ -20,4 +30,5 @@ jobs:
             - name: I will execute when cancelled
               if: ${{cancelled()}}
               run: echo "I will print if the workflow has been cancelled"
+              # you can cancle of workflow by hitting Cancle buttom from ui 
 
