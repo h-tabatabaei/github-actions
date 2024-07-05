@@ -1,4 +1,11 @@
 name: 07 - Using Expressions
+# preparing default value on push event. becase there is no default 
+#  debug value
+run-name: 07 - Using Expressions | DEBUG - ${{ inputs.debug && 'ON' || 'OFF'}}
+# the aboe if statement said: if debug value has set then print ON (thi
+#  could be happened on Wokrflow-dispatch) otherwise print OFF ( this could
+#  be happend on push event)
+
 
 on:
     push:
@@ -13,6 +20,7 @@ jobs:
         steps:
             - name: '[debug] Print start-up data'
               if: ${{ inputs.debug}}
+              # if: inputs.debug # you can run the if condition with this syntax too
               run: |
                 echo "Triggered by: ${{ github.event_name}}"
                 echo "Branch: ${{ github.ref}}"
@@ -20,7 +28,8 @@ jobs:
                 echo "Runner OS: ${{ runner.os}}"
             - name: '[debug] Print when triggered from main'
               if: ${{ inputs.debug && github.ref == 'refs/heads/main'}}
+              #if: inputs.debug && github.ref == 'refs/heads/main' # you can run if condtion with this syntax too
               run:  echo "I was triggered from main branch"
             - name: '[debug] Greeting'
               run: echo "helo World"
-              
+
