@@ -2,13 +2,19 @@ name: 07 - Using Expressions
 # preparing default value on push event. becase there is no default 
 #  debug value
 run-name: 07 - Using Expressions | DEBUG - ${{ inputs.debug && 'ON' || 'OFF'}}
-# the aboe if statement said: if debug value has set then print ON (thi
-#  could be happened on Wokrflow-dispatch) otherwise print OFF ( this could
-#  be happend on push event)
+# the above if statement said: if debug value has set then print ON (thi
+#  could be happened on Wokrflow-dispatch while debug checks to true)
+#  otherwise print OFF ( this could be happend on push event or on
+#  workflow-dispatch while debug checks is false)
+
+#env:
+#    MY_VAR_WITH_DEFAULT: ${{vars.MY_VAR || 'default_value'}}
+# in the above example we set a default value. if my_var has been 
+#   defined it is a default value else the string 'default_value' would be
 
 
 on:
-    push:
+    #push:
     workflow_dispatch: 
         inputs:
             debug:
