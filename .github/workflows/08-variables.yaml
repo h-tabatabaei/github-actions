@@ -23,7 +23,7 @@ jobs:
                 # the env will be exist on host as an environment var
                 echo  "Job env var: ${{env.JOB_VAR}}"
                 echo  "Workflow env var: ${{env.WORKFLOW_VAR}}"
-                echo  "Overwritten env var: ${{env.OVERWRITTEN}}
+                echo  "Overwritten env var: ${{env.OVERWRITTEN}}"
                 # as you can see: step level override the job and the job var override to workflow level var.
                 
                 
