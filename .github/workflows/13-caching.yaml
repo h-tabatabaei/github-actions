@@ -36,6 +36,7 @@ jobs:
               id: cache
               with:
                 path: 13-caching/react-app/node_modules
+                # path is the path that will be saved as a cached at the end of workflow run
                 key: deps-node-modules-${{hashFiles('13-caching/react-app/package-lock.json')}}  
             - name: Install dep
               if: steps.cache.outputs.cache-hit != 'true'
