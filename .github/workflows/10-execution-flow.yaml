@@ -15,11 +15,15 @@ jobs:
               run: echo "Linting and building project"
     unit-test:
         runs-on: ubuntu-latest
+        continue-on-error: true
         steps:
             - name: Running unit tests
               run: echo "running tests...."
             - name: Failing tests
               if: ${{!inputs.pass-unit-test}}
+              # as above condtion in case u didnot check input the 
+              #   jobs after unit-test will fail. you can change this
+              #   behavior by adding continue-on-erro: true
               run: exit 1
     deploy-nonprod:
         runs-on: ubuntu-latest
