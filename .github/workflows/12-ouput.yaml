@@ -15,12 +15,17 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
           build-status: ${{steps.build.outputs.status}} # here status is the key form line status=success
+          # output-status: .... this is how you can have more than one output in job level
         steps:
             - name: Print GITHUB_OUTPUT path
               run: echo $GITHUB_OUTPUT
+              # each step has its own output file they donot share output file
             - name: build
               id: build
-              run: echo "status=${{inputs.input-build-status}}" >> "$GITHUB_OUTPUT"
+              run: |
+                echo $GITHUB_OUTPUT 
+                # as you can see the output file has another address from last step.
+                echo "status=${{inputs.input-build-status}}" >> "$GITHUB_OUTPUT"
     deploy:
         runs-on: ubuntu-latest
         needs: build
