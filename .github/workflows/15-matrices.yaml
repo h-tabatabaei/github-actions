@@ -13,6 +13,8 @@ jobs:
                     - ubuntu:latest
                     - ubuntu:20.04
         steps:
+            - name: checkup steps
+              uses: actions/checkout@v4
             - name: Setup node
               uses: actions/setup-node@v3
               with: 
