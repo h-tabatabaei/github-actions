@@ -1,4 +1,4 @@
-name: working with matrices
+name: 15 - working with matrices
 
 on:
     workflow_dispatch: 
@@ -12,6 +12,13 @@ jobs:
                 os:
                     - ubuntu:latest
                     - ubuntu:20.04
+# by runnig this flow we create 6 job. eac node version will execute
+#  on one of os which will run same steps
+                include: 
+                    - os: ubuntu-latest
+                    - node-version: 16.x
+# include will add another job with corresponding attr. now we have 7 jobs in the flow.
+ #  as you can see with include I run job just for ubuntu and not windows.
         steps:
             - name: checkup steps
               uses: actions/checkout@v4
