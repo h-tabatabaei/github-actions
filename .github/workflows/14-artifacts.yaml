@@ -1,0 +1,54 @@
+name: 14 - working with artifacts
+
+on:
+    workflow_dispatch: 
+
+jobs:
+    build-test:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: 14-artifacts/react-app
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Setup Node
+              uses: actions/setup-Node@v3
+              with:
+                  node-version: '20.x'
+            - name: Download Cached dep
+              uses: actions/cache@v3
+              id: cache
+              with:
+                  path: 14-artifacts/react-app/node_modules
+                  key: deps-node-modules-${{hashFiles('14-artifacts/react-app/package-lock.json')}}  
+            - name: install dep
+              if: steps.cache.outcome.cache-hit != 'true'
+              run: npm ci             
+            - name: Unit test 
+              run: npm run test
+            - name: Build code
+              run: npm run build
+              # after runnig build command a build file (production ready)
+              #   files will be generated under react/build . so we want to 
+              #   mode these files as an artifact to deploy job
+            - name: Upload build files
+              uses: actions/upload-artifact@v3
+              with:
+                name: app
+                path: 14-artifacts/react-app/build
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download build artifacts
+              uses: actions/Download-artifact@v3
+              with:
+                name: app # this name should be match with source name artifacts
+                path: 14-artifacts/react-app/build 
+            - name: show folder structure
+              run: ls -R
+                
+
+                
+
+
